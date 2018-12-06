@@ -8,7 +8,8 @@ const petfinder = pf({
   secret: process.env.API_SECRET
 });
 
-console.log(petfinder);
+// console.log(petfinder);
+console.log(petfinder.breed.list({ animal: "dog" }));
 
 class Results extends React.Component {
   constructor(props) {
