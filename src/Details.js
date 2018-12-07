@@ -21,7 +21,7 @@ class Details extends React.Component {
   }
 
   componentDidMount() {
-    petfineder.pet
+    petfinder.pet
       .get({
         output: "full",
         id: this.props.id
