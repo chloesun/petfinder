@@ -8,57 +8,6 @@ const petfinder = pf({
 console.log(petfinder);
 
 class SearchParams extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      location: "Seattle, WA",
-      animal: "",
-      breed: "",
-      breeds: []
-    };
-  }
-  //handle get an event as a parameter
-  handleLocationChange = event => {
-    this.setState({
-      location: event.target.value
-    });
-  };
-
-  handleAnimalChange = event => {
-    //getBreeds will get called after setstate
-    this.setState(
-      {
-        animal: event.target.value,
-        breed: ""
-      },
-      this.getBreeds
-    );
-  };
-
-  handleBreedChange = event => {
-    this.setState({
-      breed: event.target.value
-    });
-  };
-
-  getBreeds() {
-    if (this.state.animal) {
-      //return a promise
-      petfinder.breed.list({ animal: this.state.animal }).then(data => {
-        if (
-          data.petfinder &&
-          data.petfinder.breeds &&
-          Array.isArray(data.petfinder.breeds.breed)
-        ) {
-          this.setState({
-            breeds: data.petfinder.breeds.breed
-          });
-        } else this.setState({ breeds: [] });
-      });
-    } else this.setState({ breeds: [] });
-  }
-
   render() {
     return (
       <div className="search-params">
