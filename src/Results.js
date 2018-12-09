@@ -1,6 +1,7 @@
 import React from "react";
 import pf from "petfinder-client";
 import Pet from "./Pet";
+import SearchBox from "./SearchBox";
 
 //petfinder api client
 const petfinder = pf({
@@ -53,6 +54,7 @@ class Results extends React.Component {
   render() {
     return (
       <div className="search">
+        {/* <SearchBox /> */}
         {this.state.pets.map(pet => {
           let breed;
           if (Array.isArray(pet.breeds.breed)) {
