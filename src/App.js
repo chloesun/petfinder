@@ -75,14 +75,14 @@ class App extends React.Component {
       <div>
         <header>
           <Link to="/">Adopt Me!</Link>
-          <Link to="/search">
+          <Link to="/searchparams">
             <span aria-label="search" role="img">
               🔍
             </span>
           </Link>
         </header>
-        anything inside provider can access this context using the consumer that
-        exported
+        {/* anything inside provider can access this context using the consumer that
+        exported */}
         <Provider value={this.state}>
           <Router>
             <Results path="/" />
