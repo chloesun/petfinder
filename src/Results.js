@@ -1,5 +1,6 @@
 import React from "react";
 import pf from "petfinder-client";
+import { Consumer } from "./SearchContext";
 import Pet from "./Pet";
 import SearchBox from "./SearchBox";
 
@@ -21,6 +22,10 @@ class Results extends React.Component {
   }
 
   componentDidMount() {
+    this.search();
+  }
+
+  search = () => {
     //this returns a promise, it is an object that represents a future value
     //that is goig to be coming, this takes time to go out to API, get the list
     //of breads for dogs and come back
@@ -29,7 +34,13 @@ class Results extends React.Component {
     // promise.then(console.log, console.error);
 
     petfinder.pet
-      .find({ location: "Seattle, WA", output: "full" })
+      .find({
+        //directly from context
+        location: this.props.searchParams,
+        animal: this.props.searchParams.animal,
+        breed: this.props.searchParams.breed,
+        output: "full"
+      })
       .then(data => {
         let pets;
         if (data.petfinder.pets && data.petfinder.pets.pet) {
@@ -45,7 +56,7 @@ class Results extends React.Component {
           pets
         });
       });
-  }
+  };
 
   handleTitleClick() {
     alert("you clicked this title");
@@ -54,7 +65,7 @@ class Results extends React.Component {
   render() {
     return (
       <div className="search">
-        {/* <SearchBox /> */}
+        <SearchBox seach={this.search} />
         {this.state.pets.map(pet => {
           let breed;
           if (Array.isArray(pet.breeds.breed)) {
@@ -79,4 +90,10 @@ class Results extends React.Component {
   }
 }
 
-export default Results;
+export default function ResultsWithContext(props) {
+  return (
+    <Consumer>
+      {context => <Results {...props} searchParams={context} />}
+    </Consumer>
+  );
+}
